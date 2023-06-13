@@ -2,13 +2,19 @@ const cards = document.querySelectorAll(".plate");
 const btnNext = document.querySelector("[data-nav='next']");
 const btnPrev = document.querySelector("[data-nav='prev']");
 
-let currentIndex = 3; //? Для перемещения по карточкам
+//? Скрыть все карточки
+cards.forEach(function (card) {
+    card.classList.add('none');
+})
+
+let currentIndex = 0; //? Для перемещения по карточкам
 let currentCard = 0; //? Для прогресса
 
 // //? Скрываем кнопку назад на первой карточке
 cards[0].querySelector('[data-nav="prev"]').remove();
 
 // //? Показываем первую карточку
+cards[currentIndex].classList.remove("none");
 cards[currentIndex].classList.add("visible");
 
 //? Запускаем прогресс бар c 0%
@@ -28,12 +34,22 @@ window.addEventListener('click', function (e) {
             this.setTimeout(function () {
         //? Скрываем текущую карточку
             cards[currentIndex].classList.remove("visible");
-            currentIndex = currentIndex + 1;
+            
+            setTimeout(function () {
+                cards[currentIndex].classList.add("none");
+                currentIndex = currentIndex + 1;
+                cards[currentIndex].classList.remove("none");
+
+                setTimeout(function () {
+                    cards[currentIndex].classList.add("visible");
+                }, 200);
+            }, 500);
+
         //? Показываем следующую карточку
-            cards[currentIndex].classList.add("visible");
+            // cards[currentIndex].classList.add("visible");
         //? Убираем красную рамку, если ответ дан
-            answersWrapper.classList.remove("required");
-            }, 500)
+            // answersWrapper.classList.remove("required");
+            }, 500);
         }
         else {
         //? Добавляем красную рамку при отсутствии ответа
@@ -51,7 +67,17 @@ window.addEventListener('click', function (e) {
         this.setTimeout(function () {
             //? Скрываем текущую карточку
             cards[currentIndex].classList.remove("visible");
-            currentIndex = currentIndex - 1;
+
+            setTimeout(function () {
+                cards[currentIndex].classList.add("none");
+                currentIndex = currentIndex - 1;
+                cards[currentIndex].classList.remove("none");
+
+                setTimeout(function () {
+                    cards[currentIndex].classList.add("visible");
+                }, 200);
+            }, 500);
+            
             //? Показываем предидущую карточку
             cards[currentIndex].classList.add("visible");
         }, 500)
@@ -115,3 +141,12 @@ submitForm.onclick = function () {
 }
 
 //? Фокус на чекбоксе
+const checkBoxPolicy = document.querySelector('#policy');
+
+checkBoxPolicy.addEventListener('focus', function () {
+    this.closest('label').classList.add('hovered');
+})
+
+checkBoxPolicy.addEventListener('blur', function () {
+    this.closest('label').classList.remove('hovered');
+})
