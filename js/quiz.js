@@ -46,9 +46,9 @@ window.addEventListener('click', function (e) {
             }, 500);
 
         //? Показываем следующую карточку
-            // cards[currentIndex].classList.add("visible");
+            cards[currentIndex].classList.add("visible");
         //? Убираем красную рамку, если ответ дан
-            // answersWrapper.classList.remove("required");
+            answersWrapper.classList.remove("required");
             }, 500);
         }
         else {
@@ -56,8 +56,6 @@ window.addEventListener('click', function (e) {
             let answersWrapper = cards[currentIndex].querySelector('[data-answers]');
             answersWrapper.classList.add("required");
         }
-
-
     }
 
     if (e.target.closest('[data-nav="prev"]')) {
